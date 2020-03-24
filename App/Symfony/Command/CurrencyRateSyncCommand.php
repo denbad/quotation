@@ -40,7 +40,7 @@ final class CurrencyRateSyncCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         if (!$input->getOption('force')) {
-            $message = '<info>Proceed with currency rate sync from</info> <comment>%s</comment> ? (Y/n)';
+            $message = '<info>Proceed with currency rate sync</info> ? (Y/n)';
             if (!$this->getHelper('question')->ask($input, $output, new ConfirmationQuestion($message, false))) {
                 $output->writeln('<error>Currency rate sync canceled!</error>');
                 return 0;

@@ -7,13 +7,13 @@ services:
 
     App\Symfony\Command\CurrencyRateSyncCommand:
         bind:
-            App\Infrastructure\HttpClient\CurrencyRateProvider: '@App\Infrastructure\HttpClient\CbrAdapter'
+            App\Infrastructure\HttpClient\CurrencyRateProvider: '@App\Infrastructure\HttpClient\DefaultAdapter'
             SimpleBus\Message\Bus\MessageBus: '@SimpleBus\SymfonyBridge\Bus\CommandBus'
 
     # Controller
 
     App\Symfony\Controller\:
-        resource: '../../../../src/Symfony/Controller/*'
+        resource: '../../../../App/Symfony/Controller/*'
         tags: ['controller.service_arguments']
 
     # Http Client
@@ -24,14 +24,32 @@ services:
         class: 'App\Infrastructure\HttpClient\Client'
         factory: ['@App\Infrastructure\HttpClient\ClientFactory', 'create']
 
-    # Currency Rate Provider
+    # Currency Provider
+
+    App\Infrastructure\HttpClient\DefaultAdapter: ~
 
     App\Infrastructure\HttpClient\EcbAdapter:
         bind:
             GuzzleHttp\ClientInterface: '@App\Infrastructure\HttpClient\Client'
+        tags:
+            - { name: 'app.currency_provider', alias: 'ecb' }
 
     App\Infrastructure\HttpClient\CbrAdapter:
         bind:
             GuzzleHttp\ClientInterface: '@App\Infrastructure\HttpClient\Client'
+        tags:
+            - { name: 'app.currency_provider', alias: 'cbr' }
 
+    # Application Handler
 
+    ### Refresh
+
+    App\Application\RefreshHandler:
+        tags:
+            - { name: 'command_handler', handles: 'App\Application\Refresh' }
+
+    ### Convert
+
+    App\Application\ConverthHandler:
+        tags:
+            - { name: 'command_handler', handles: 'App\Application\Convert' }

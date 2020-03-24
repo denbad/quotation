@@ -2,6 +2,10 @@ FROM php:7.4.4-cli
 
 LABEL maintainer="Denis Badulin"
 
+# Install php extentions
+
+RUN docker-php-ext-install pdo_mysql
+
 # Configure php
 
 RUN rm /usr/local/etc/php/php.*
