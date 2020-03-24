@@ -21,12 +21,7 @@ final class CbrAdapter extends BaseAdapter
     protected function normalize(string $contents): array
     {
         return array_map(function (array $entry): Entry {
-            return new Entry(
-                $this->base(),
-                $entry['CharCode'],
-                $entry['Nominal'],
-                str_replace(',', '.', $entry['Value'])
-            );
+            return new Entry($this->base(), $entry['CharCode'], $entry['Nominal'], $entry['Value']);
         }, $this->xmlToArray($contents)['Valute']);
     }
 }
