@@ -1,0 +1,23 @@
+{
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.1"
+    },
+    "ocramius/proxy-manager": {
+        "version": "2.7.0"
+    },
+    "php": {
+        "version": "7.4"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.0.5"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.0.1"
+    }
+}

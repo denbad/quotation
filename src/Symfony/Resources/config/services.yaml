@@ -1,0 +1,37 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Console Command
+
+    App\Symfony\Command\CurrencyRateSyncCommand:
+        bind:
+            App\Infrastructure\HttpClient\CurrencyRateProvider: '@App\Infrastructure\HttpClient\CbrAdapter'
+            SimpleBus\Message\Bus\MessageBus: '@SimpleBus\SymfonyBridge\Bus\CommandBus'
+
+    # Controller
+
+    App\Symfony\Controller\:
+        resource: '../../../../src/Symfony/Controller/*'
+        tags: ['controller.service_arguments']
+
+    # Http Client
+
+    App\Infrastructure\HttpClient\ClientFactory:  ~
+
+    App\Infrastructure\HttpClient\Client:
+        class: 'App\Infrastructure\HttpClient\Client'
+        factory: ['@App\Infrastructure\HttpClient\ClientFactory', 'create']
+
+    # Currency Rate Provider
+
+    App\Infrastructure\HttpClient\EcbAdapter:
+        bind:
+            GuzzleHttp\ClientInterface: '@App\Infrastructure\HttpClient\Client'
+
+    App\Infrastructure\HttpClient\CbrAdapter:
+        bind:
+            GuzzleHttp\ClientInterface: '@App\Infrastructure\HttpClient\Client'
+
+
