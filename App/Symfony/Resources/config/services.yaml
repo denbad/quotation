@@ -50,6 +50,6 @@ services:
 
     ### Convert
 
-    App\Application\ConverthHandler:
+    App\Application\ConvertHandler:
         tags:
             - { name: 'command_handler', handles: 'App\Application\Convert' }
