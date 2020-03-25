@@ -8,7 +8,7 @@ use GuzzleHttp\ClientInterface;
 
 abstract class BaseAdapter implements CurrencyRateProvider
 {
-    protected $client;
+    protected ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {

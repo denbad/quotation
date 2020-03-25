@@ -18,8 +18,8 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 final class CurrencyRateSyncCommand extends Command
 {
     protected static $defaultName = 'currency-rate:sync';
-    private $remoteRates;
-    private $commandBus;
+    private CurrencyRateProvider $remoteRates;
+    private MessageBus $commandBus;
 
     public function __construct(CurrencyRateProvider $remoteRates, MessageBus $commandBus)
     {

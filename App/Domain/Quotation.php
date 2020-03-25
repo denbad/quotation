@@ -6,9 +6,9 @@ namespace App\Domain;
 
 final class Quotation
 {
-    private $base;
-    private $quote;
-    private $bid;
+    private string $base;
+    private string $quote;
+    private float $bid;
 
     private function __construct(string $base, string $quote, float $bid)
     {

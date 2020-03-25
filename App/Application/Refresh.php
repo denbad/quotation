@@ -6,10 +6,10 @@ namespace App\Application;
 
 final class Refresh
 {
-    private $base;
-    private $quote;
-    private $bid;
-    private $nominal;
+    private string $base;
+    private string $quote;
+    private int $nominal;
+    private float $bid;
 
     public function __construct(string $base, string $quote, int $nominal, float $bid)
     {
