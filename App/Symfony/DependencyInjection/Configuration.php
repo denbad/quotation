@@ -16,9 +16,9 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('currency')
+                ->arrayNode('quotation')
                     ->children()
-                        ->enumNode('provider')
+                        ->enumNode('loader')
                             ->values(['ecb', 'cbr'])
                             ->defaultValue('ecb')
                         ->end()

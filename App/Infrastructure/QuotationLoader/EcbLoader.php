@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\HttpClient;
+namespace App\Infrastructure\QuotationLoader;
 
-final class EcbAdapter extends BaseAdapter
+final class EcbLoader extends BaseLoader
 {
     use ConvertsXmlToArray;
 
@@ -13,16 +13,21 @@ final class EcbAdapter extends BaseAdapter
         return 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
     }
 
-    protected function base(): string
+    protected function code(): string
     {
         return 'EUR';
     }
 
     protected function normalize(string $contents): array
     {
-        return array_map(function (array $entry): Entry {
+        return array_map(function (array $entry): array {
             $entry = array_shift($entry);
-            return new Entry($this->base(), $entry['currency'], 1, $entry['rate']);
+            return [
+                'base' => $this->code(),
+                'quote' => $entry['currency'],
+                'nominal' => 1,
+                'bid' => $entry['rate']
+            ];
         }, $this->xmlToArray($contents)['Cube']['Cube']['Cube']);
     }
 }

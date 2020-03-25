@@ -1,41 +1,41 @@
 ##### Clone git repository
-$ git clone url currency-rate
+$ git clone url quotation
 
 ##### Change to app dir
-$ cd currency-rate
+$ cd quotation
 
 ##### Run containers
 $ docker-compose up -d --build
 
 ##### Install app dependencies
-$ docker exec -it currency-rate-cli composer install
+$ docker exec -it quotation-cli composer install
 
 ##### Test mysql server is running
 $ mysql -u root -h 127.0.0.1 -P13306 -proot
 
-##### Preview response from currency rate provider
-$ docker exec -it currency-rate-cli php bin/console currency-rate:sync --dry-run
+##### Preview response from quotation rate provider
+$ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
 
-##### Currency rates sync
-$ docker exec -it currency-rate-cli php bin/console currency-rate:sync
+##### Quotations sync
+$ docker exec -it quotation-cli php bin/console quotation:sync
 
-##### Currency rates forced sync
-$ docker exec -it currency-rate-cli php bin/console currency-rate:sync --force
+##### Quotations forced sync
+$ docker exec -it quotation-cli php bin/console quotation:sync --force
 
 ##### Actual database contents
-$ docker exec -it currency-rate-percona mysql -u root -proot -e "select * from app.quotation" 
+$ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY code" 
 
-##### Switch to currency provider alternative currency provider
+##### Switch to alternative quotation provider
 Edit config/packages/app.yaml ('ecb' or 'cbr')
 
 ##### Run static analysis
-$ docker exec -it currency-rate-cli 
+$ docker exec -it quotation-cli 
 
 ##### Run unit tests
-$ docker exec -it currency-rate-cli 
+$ docker exec -it quotation-cli 
 
 ##### Run integration tests
-$ docker exec -it currency-rate-cli 
+$ docker exec -it quotation-cli 
 
 ##### Conversion example 1
 $ curl  

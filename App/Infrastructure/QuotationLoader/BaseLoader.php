@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\HttpClient;
+namespace App\Infrastructure\QuotationLoader;
 
 use GuzzleHttp\ClientInterface;
 
-abstract class BaseAdapter implements CurrencyRateProvider
+abstract class BaseLoader implements Loader
 {
     protected ClientInterface $client;
 
@@ -22,7 +22,7 @@ abstract class BaseAdapter implements CurrencyRateProvider
 
     abstract protected function uri(): string;
 
-    abstract protected function base(): string;
+    abstract protected function code(): string;
 
     abstract protected function normalize(string $contents): array;
 }

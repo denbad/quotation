@@ -5,9 +5,8 @@ services:
 
     # Console Command
 
-    App\Symfony\Command\CurrencyRateSyncCommand:
+    App\Symfony\Command\QuotationSyncCommand:
         bind:
-            App\Infrastructure\HttpClient\CurrencyRateProvider: '@App\Infrastructure\HttpClient\DefaultAdapter'
             SimpleBus\Message\Bus\MessageBus: '@SimpleBus\SymfonyBridge\Bus\CommandBus'
 
     # Controller
@@ -16,29 +15,33 @@ services:
         resource: '../../../../App/Symfony/Controller/*'
         tags: ['controller.service_arguments']
 
-    # Http Client
+    # Quotation Provider
 
-    App\Infrastructure\HttpClient\ClientFactory:  ~
-
-    App\Infrastructure\HttpClient\Client:
-        class: 'App\Infrastructure\HttpClient\Client'
-        factory: ['@App\Infrastructure\HttpClient\ClientFactory', 'create']
-
-    # Currency Provider
-
-    App\Infrastructure\HttpClient\DefaultAdapter: ~
-
-    App\Infrastructure\HttpClient\EcbAdapter:
+    App\Domain\QuotationProvider:
         bind:
-            GuzzleHttp\ClientInterface: '@App\Infrastructure\HttpClient\Client'
-        tags:
-            - { name: 'app.currency_provider', alias: 'ecb' }
+            App\Infrastructure\QuotationLoader\Loader: '@App\Infrastructure\QuotationLoader\DefaultLoader'
 
-    App\Infrastructure\HttpClient\CbrAdapter:
+    # Quotation Loader
+
+    App\Infrastructure\QuotationLoader\ClientFactory:  ~
+
+    App\Infrastructure\QuotationLoader\Client:
+        class: 'App\Infrastructure\QuotationLoader\Client'
+        factory: ['@App\Infrastructure\QuotationLoader\ClientFactory', 'create']
+
+    App\Infrastructure\QuotationLoader\DefaultLoader: ~
+
+    App\Infrastructure\QuotationLoader\EcbLoader:
         bind:
-            GuzzleHttp\ClientInterface: '@App\Infrastructure\HttpClient\Client'
+            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationLoader\Client'
         tags:
-            - { name: 'app.currency_provider', alias: 'cbr' }
+            - { name: 'app.quotation_loader', alias: 'ecb' }
+
+    App\Infrastructure\QuotationLoader\CbrLoader:
+        bind:
+            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationLoader\Client'
+        tags:
+            - { name: 'app.quotation_loader', alias: 'cbr' }
 
     # Application Handler
 

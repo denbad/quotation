@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application;
 
-final class NotSupported
+final class NotSupported extends \RuntimeException
 {
 
 }
