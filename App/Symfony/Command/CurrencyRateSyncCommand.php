@@ -54,7 +54,7 @@ final class CurrencyRateSyncCommand extends Command
         if ($input->getOption('dry-run')) {
             (new Table($output))
                 ->setHeaders(['Base', 'Quote', 'Bid', 'Nominal'])
-                ->addRows(array_map(static function(Entry $entry): array {
+                ->addRows(array_map(static function (Entry $entry): array {
                     return [$entry->base, $entry->quote, $entry->nominal, $entry->bid];
                 }, $entries))
                 ->render()
