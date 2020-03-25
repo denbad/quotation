@@ -8,14 +8,12 @@ final class Refresh
 {
     private string $base;
     private string $quote;
-    private int $nominal;
     private float $bid;
 
-    public function __construct(string $base, string $quote, int $nominal, float $bid)
+    public function __construct(string $base, string $quote, float $bid)
     {
         $this->base = $base;
         $this->quote = $quote;
-        $this->nominal = $nominal;
         $this->bid = $bid;
     }
 
@@ -27,11 +25,6 @@ final class Refresh
     public function quote(): string
     {
         return $this->quote;
-    }
-
-    public function nominal(): int
-    {
-        return $this->nominal;
     }
 
     public function bid(): float

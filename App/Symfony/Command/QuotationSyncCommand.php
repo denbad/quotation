@@ -40,7 +40,8 @@ final class QuotationSyncCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         if (!$input->getOption('force')) {
-            $message = '<info>Proceed with quotation sync</info> ? (Y/n)';
+            $provider = $this->provider->name();
+            $message = sprintf('<info>Proceed with sync from <comment>"%s"</comment></info> ? (Y/n)', $provider);
             if (!$this->getHelper('question')->ask($input, $output, new ConfirmationQuestion($message, false))) {
                 $output->writeln('<error>Quotation sync canceled!</error>');
                 return 0;
@@ -49,14 +50,14 @@ final class QuotationSyncCommand extends Command
 
         $output->writeln('<comment>Loading...</comment>');
 
-        $entries = $this->provider->entries();
+        $quotations = $this->provider->quotations();
 
         if ($input->getOption('dry-run')) {
             (new Table($output))
-                ->setHeaders(['Base', 'Quote', 'Bid', 'Nominal'])
-                ->addRows(array_map(static function (Quotation $entry): array {
-                    return [$entry->base, $entry->quote, $entry->nominal, $entry->bid];
-                }, $entries))
+                ->setHeaders(['Code', 'Bid'])
+                ->addRows(array_map(static function (Quotation $quotation): array {
+                    return [$quotation->base().$quotation->quote(), $quotation->bid()];
+                }, $quotations))
                 ->render()
             ;
 
@@ -65,13 +66,8 @@ final class QuotationSyncCommand extends Command
 
         $output->writeln('<comment>Saving...</comment>');
 
-        array_walk($entries, function (Quotation $entry): void {
-            $this->commandBus->handle(new Refresh(
-                (string) $entry->base,
-                (string) $entry->quote,
-                (int) $entry->nominal,
-                (float) $entry->bid
-            ));
+        array_walk($quotations, function (Quotation $quotation): void {
+            $this->commandBus->handle(new Refresh($quotation->base(), $quotation->quote(), $quotation->bid()));
         });
 
         $output->writeln('<comment>Done.</comment>');

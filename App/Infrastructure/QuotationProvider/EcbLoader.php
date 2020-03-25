@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\QuotationLoader;
+namespace App\Infrastructure\QuotationProvider;
 
 final class EcbLoader extends BaseLoader
 {
     use ConvertsXmlToArray;
+
+    public function name(): string
+    {
+        return 'European Central Bank';
+    }
 
     protected function uri(): string
     {

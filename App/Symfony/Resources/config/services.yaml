@@ -7,6 +7,7 @@ services:
 
     App\Symfony\Command\QuotationSyncCommand:
         bind:
+            App\Domain\QuotationProvider: '@App\Infrastructure\QuotationProvider\QuotationProvider'
             SimpleBus\Message\Bus\MessageBus: '@SimpleBus\SymfonyBridge\Bus\CommandBus'
 
     # Controller
@@ -17,31 +18,29 @@ services:
 
     # Quotation Provider
 
-    App\Domain\QuotationProvider:
+    App\Infrastructure\QuotationProvider\ClientFactory: ~
+
+    App\Infrastructure\QuotationProvider\HttpClient:
+        class: 'App\Infrastructure\QuotationProvider\HttpClient'
+        factory: ['@App\Infrastructure\QuotationProvider\ClientFactory', 'create']
+
+    App\Infrastructure\QuotationProvider\DefaultLoader: ~ # see QuotationLoaderPass
+
+    App\Infrastructure\QuotationProvider\EcbLoader:
         bind:
-            App\Infrastructure\QuotationLoader\Loader: '@App\Infrastructure\QuotationLoader\DefaultLoader'
-
-    # Quotation Loader
-
-    App\Infrastructure\QuotationLoader\ClientFactory:  ~
-
-    App\Infrastructure\QuotationLoader\Client:
-        class: 'App\Infrastructure\QuotationLoader\Client'
-        factory: ['@App\Infrastructure\QuotationLoader\ClientFactory', 'create']
-
-    App\Infrastructure\QuotationLoader\DefaultLoader: ~
-
-    App\Infrastructure\QuotationLoader\EcbLoader:
-        bind:
-            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationLoader\Client'
+            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationProvider\HttpClient'
         tags:
-            - { name: 'app.quotation_loader', alias: 'ecb' }
+            - { name: 'quotation_loader', alias: 'ecb' }
 
-    App\Infrastructure\QuotationLoader\CbrLoader:
+    App\Infrastructure\QuotationProvider\CbrLoader:
         bind:
-            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationLoader\Client'
+            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationProvider\HttpClient'
         tags:
-            - { name: 'app.quotation_loader', alias: 'cbr' }
+            - { name: 'quotation_loader', alias: 'cbr' }
+
+    App\Infrastructure\QuotationProvider\QuotationProvider:
+        bind:
+            App\Infrastructure\QuotationProvider\Loader: '@App\Infrastructure\QuotationProvider\DefaultLoader'
 
     # Application Handler
 

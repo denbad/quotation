@@ -13,7 +13,7 @@ $ docker exec -it quotation-cli composer install
 ##### Test mysql server is running
 $ mysql -u root -h 127.0.0.1 -P13306 -proot
 
-##### Preview response from quotation rate provider
+##### Quotations preview
 $ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
 
 ##### Quotations sync

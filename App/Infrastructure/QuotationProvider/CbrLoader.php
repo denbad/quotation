@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\QuotationLoader;
+namespace App\Infrastructure\QuotationProvider;
 
 final class CbrLoader extends BaseLoader
 {
     use ConvertsXmlToArray;
+
+    public function name(): string
+    {
+        return 'The Central Bank of the Russian Federation';
+    }
 
     protected function uri(): string
     {
