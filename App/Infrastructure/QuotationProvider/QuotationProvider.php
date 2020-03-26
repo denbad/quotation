@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\QuotationProvider;
 
-use App\Domain\Quotation;
-use App\Domain\QuotationProvider as Provider;
+use App\Domain\Write\Quotation;
+use App\Domain\Write\QuotationProvider as Provider;
 
 final class QuotationProvider implements Provider
 {

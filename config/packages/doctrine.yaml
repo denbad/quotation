@@ -13,5 +13,5 @@ doctrine:
             AppBundle:
                 type: 'xml'
                 is_bundle: false
-                prefix: 'App\Domain'
+                prefix: 'App\Domain\Write'
                 dir: "%kernel.project_dir%/App/Infrastructure/Persistence/mapping/"

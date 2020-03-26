@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Domain\Write;
 
 use Assert\Assertion;
 
@@ -28,10 +28,5 @@ class PersistedQuotation
     {
         $this->bid = $bid;
         $this->updatedAt = new \DateTimeImmutable();
-    }
-
-    public function convert(float $amount): float
-    {
-        return $amount * $this->bid;
     }
 }

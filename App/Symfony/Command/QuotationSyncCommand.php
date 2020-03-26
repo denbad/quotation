@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Symfony\Command;
 
-use App\Application\Refresh;
-use App\Domain\Quotation;
-use App\Domain\QuotationProvider;
+use App\Application\Command\Refresh;
+use App\Domain\Write\Quotation;
+use App\Domain\Write\QuotationProvider;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -56,7 +56,7 @@ final class QuotationSyncCommand extends Command
             (new Table($output))
                 ->setHeaders(['Code', 'Bid'])
                 ->addRows(array_map(static function (Quotation $quotation): array {
-                    return [$quotation->base().$quotation->quote(), $quotation->bid()];
+                    return [$quotation->code(), $quotation->bid()];
                 }, $quotations))
                 ->render()
             ;
@@ -67,7 +67,7 @@ final class QuotationSyncCommand extends Command
         $output->writeln('<comment>Saving...</comment>');
 
         array_walk($quotations, function (Quotation $quotation): void {
-            $this->commandBus->handle(new Refresh($quotation->base(), $quotation->quote(), $quotation->bid()));
+            $this->commandBus->handle(new Refresh($quotation->code(), $quotation->bid()));
         });
 
         $output->writeln('<comment>Done.</comment>');

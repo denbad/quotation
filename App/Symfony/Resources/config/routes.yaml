@@ -1,0 +1,4 @@
+convert:
+    path: '/convert/{code}/'
+    controller: 'App\Symfony\Controller\ConversionController'
+    methods: 'GET'

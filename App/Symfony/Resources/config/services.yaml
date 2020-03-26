@@ -7,14 +7,12 @@ services:
 
     App\Symfony\Command\QuotationSyncCommand:
         bind:
-            App\Domain\QuotationProvider: '@App\Infrastructure\QuotationProvider\QuotationProvider'
+            App\Domain\Write\QuotationProvider: '@App\Infrastructure\QuotationProvider\QuotationProvider'
             SimpleBus\Message\Bus\MessageBus: '@SimpleBus\SymfonyBridge\Bus\CommandBus'
 
     # Controller
 
-    App\Symfony\Controller\:
-        resource: '../../../../App/Symfony/Controller/*'
-        tags: ['controller.service_arguments']
+    App\Symfony\Controller\ConversionController: ~
 
     # Quotation Provider
 
@@ -42,16 +40,30 @@ services:
         bind:
             App\Infrastructure\QuotationProvider\Loader: '@App\Infrastructure\QuotationProvider\DefaultLoader'
 
+    # Repository
+
+    ### Write
+
+    App\Infrastructure\Persistence\PersistedQuotationRepository:
+        $class: 'App\Domain\Write\PersistedQuotation'
+
+    ### Read
+
+    App\Infrastructure\Persistence\ConversionRepository: ~
+
     # Application Handler
 
-    ### Refresh
+    ### Command
 
-    App\Application\RefreshHandler:
+    App\Application\Command\RefreshHandler:
+        bind:
+            App\Domain\Write\PersistedQuotationRepository: '@App\Infrastructure\Persistence\PersistedQuotationRepository'
         tags:
-            - { name: 'command_handler', handles: 'App\Application\Refresh' }
+            - { name: 'command_handler', handles: 'App\Application\Command\Refresh' }
 
-    ### Convert
+    ### Query
 
-    App\Application\ConvertHandler:
-        tags:
-            - { name: 'command_handler', handles: 'App\Application\Convert' }
+    App\Application\Query\ConvertHandler:
+        bind:
+            App\Domain\Read\ConversionRepository: 'App\Infrastructure\Persistence\ConversionRepository'
+
