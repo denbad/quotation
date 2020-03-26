@@ -44,6 +44,8 @@ final class PersistedQuotationRepository implements WriteRepository
 
     private function getManager(): ObjectManager
     {
+        /** @var ObjectManager $manager */
+
         $manager = $this->managerRegistry->getManagerForClass($this->class);
 
         Assertion::notNull($manager);

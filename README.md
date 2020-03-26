@@ -56,7 +56,7 @@ $ curl http://localhost:8000/convert/rubeur/?nominal=100
 $ curl http://localhost:8000/convert/xdruzs/?nominal=1
 
 ### Run static analysis
-$ docker exec -it quotation-cli 
+$ docker exec -it quotation-cli vendor/bin/phpstan analyse App tests --level max -c phpstan.neon
 
 ### Run unit tests
 $ docker exec -it quotation-cli 

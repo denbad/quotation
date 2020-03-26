@@ -15,14 +15,13 @@ final class QuotationLoaderPass implements CompilerPassInterface
     {
         $configs = $container->getExtensionConfig('app');
         $config = (new Processor())->processConfiguration(new Configuration(), $configs);
+        $definition = $container->findDefinition('App\Infrastructure\QuotationProvider\DefaultLoader');
 
-        if ($definition = $container->findDefinition('App\Infrastructure\QuotationProvider\DefaultLoader')) {
-            foreach ($container->findTaggedServiceIds('quotation_loader') as $id => $tags) {
-                foreach ($tags as $attributes) {
-                    if ($attributes['alias'] === $config['quotation']['loader']) {
-                        $container->setAlias($definition->getClass(), $id);
-                        break;
-                    }
+        foreach ($container->findTaggedServiceIds('quotation_loader') as $id => $tags) {
+            foreach ($tags as $attributes) {
+                if ($attributes['alias'] === $config['quotation']['loader'] && $class = $definition->getClass()) {
+                    $container->setAlias($class, $id);
+                    break;
                 }
             }
         }
