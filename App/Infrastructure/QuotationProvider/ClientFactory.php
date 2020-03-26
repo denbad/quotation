@@ -14,4 +14,3 @@ final class ClientFactory
         return new Client();
     }
 }
-

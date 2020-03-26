@@ -19,27 +19,27 @@ services:
 
     App\Infrastructure\QuotationProvider\ClientFactory: ~
 
-    App\Infrastructure\QuotationProvider\HttpClient:
-        class: 'App\Infrastructure\QuotationProvider\HttpClient'
+    app.infrastructure.quotation_provider.http_client:
+        class: 'GuzzleHttp\Client'
         factory: ['@App\Infrastructure\QuotationProvider\ClientFactory', 'create']
 
-    App\Infrastructure\QuotationProvider\DefaultLoader: ~ # see QuotationLoaderPass
+    app.infrastructure.quotation_provider.default_loader: ~ # see QuotationLoaderPass
 
     App\Infrastructure\QuotationProvider\EcbLoader:
         bind:
-            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationProvider\HttpClient'
+            GuzzleHttp\ClientInterface: '@app.infrastructure.quotation_provider.http_client'
         tags:
             - { name: 'quotation_loader', alias: 'ecb' }
 
     App\Infrastructure\QuotationProvider\CbrLoader:
         bind:
-            GuzzleHttp\ClientInterface: '@App\Infrastructure\QuotationProvider\HttpClient'
+            GuzzleHttp\ClientInterface: '@app.infrastructure.quotation_provider.http_client'
         tags:
             - { name: 'quotation_loader', alias: 'cbr' }
 
     App\Infrastructure\QuotationProvider\QuotationProvider:
         bind:
-            App\Infrastructure\QuotationProvider\Loader: '@App\Infrastructure\QuotationProvider\DefaultLoader'
+            App\Infrastructure\QuotationProvider\Loader: '@app.infrastructure.quotation_provider.default_loader'
 
     # Repository
 
