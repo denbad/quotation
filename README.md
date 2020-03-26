@@ -1,5 +1,5 @@
 ##### Clone git repository
-$ git clone url quotation
+$ git clone git@github.com:denbad/quotation.git quotation
 
 ##### Change to app dir
 $ cd quotation

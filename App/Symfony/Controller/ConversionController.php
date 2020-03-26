@@ -23,8 +23,7 @@ final class ConversionController
         } catch (NotFound $exception) {
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (\Throwable $exception) {
-            return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-            // return new JsonResponse(['error' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new JsonResponse(['error' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
