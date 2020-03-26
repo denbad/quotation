@@ -20,7 +20,7 @@ final class ConvertHandler
         $this->conversions = $conversions;
     }
 
-    public function handle(Convert $query): array
+    public function __invoke(Convert $query): array
     {
         if (!$amount = $query->amount()) {
             return [['error' => 'Empty amount'], self::HTTP_BAD_REQUEST];

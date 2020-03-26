@@ -12,15 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class ConversionController
 {
-    private ConvertHandler $handler;
-
-    public function __construct(ConvertHandler $handler)
+    public function __invoke(Request $request, string $code, ConvertHandler $handler): Response
     {
-        $this->handler = $handler;
-    }
-
-    public function __invoke(Request $request, string $code): Response
-    {
-        return new JsonResponse(...$this->handler->handle(new Convert($code, $request->query->get('amount'))));
+        return new JsonResponse(...$handler(new Convert($code, $request->query->get('amount'))));
     }
 }

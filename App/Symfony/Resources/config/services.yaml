@@ -12,7 +12,8 @@ services:
 
     # Controller
 
-    App\Symfony\Controller\ConversionController: ~
+    App\Symfony\Controller\ConversionController:
+        tags: ['controller.service_arguments']
 
     # Quotation Provider
 
