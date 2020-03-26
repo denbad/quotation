@@ -50,7 +50,7 @@ services:
 
     ### Read
 
-    App\Infrastructure\Persistence\ConversionRepository: ~
+    App\Infrastructure\Persistence\QuotationRepository: ~
 
     # Application Handler
 
@@ -66,5 +66,5 @@ services:
 
     App\Application\Query\ConvertHandler:
         bind:
-            App\Domain\Read\ConversionRepository: 'App\Infrastructure\Persistence\ConversionRepository'
+            App\Domain\Read\QuotationRepository: 'App\Infrastructure\Persistence\QuotationRepository'
 

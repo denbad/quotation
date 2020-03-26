@@ -4,49 +4,29 @@ declare(strict_types=1);
 
 namespace App\Application\Query;
 
-use App\Domain\Read\ConversionRepository;
+use App\Domain\Read\QuotationRepository;
 
 final class ConvertHandler
 {
-    private const HTTP_OK = 200;
-    private const HTTP_BAD_REQUEST = 400;
-    private const HTTP_NOT_FOUND = 404;
-    private const HTTP_INTERNAL_SERVER_ERROR = 500;
+    private QuotationRepository $quotations;
 
-    private ConversionRepository $conversions;
-
-    public function __construct(ConversionRepository $conversions)
+    public function __construct(QuotationRepository $quotations)
     {
-        $this->conversions = $conversions;
+        $this->quotations = $quotations;
     }
 
     public function __invoke(Convert $query): array
     {
-        if (!$amount = $query->amount()) {
-            return [['error' => 'Empty amount'], self::HTTP_BAD_REQUEST];
+        if (!$nominal = $query->nominal()) {
+            throw NotValid::emptyNominal();
         }
-        if (!preg_match('#^([\d]+([.][\d]*)?|[.][\d]+)$#', $amount)) {
-            return [['error' => 'Malformed amount'], self::HTTP_BAD_REQUEST];
+        if (!preg_match('#^([\d]+([.][\d]*)?|[.][\d]+)$#', $nominal)) {
+            throw NotValid::malformedNominal($nominal);
+        }
+        if (!$conversion = $this->quotations->byCode($query->code())) {
+            throw NotFound::notSupported($query->code());
         }
 
-        try {
-            if (!$conversion = $this->conversions->byCode($query->code())) {
-                return [['error' => 'Not supported'], self::HTTP_NOT_FOUND];
-            }
-
-            return [
-                [
-                    'result' => [
-                        'code' => $conversion->code(),
-                        'bid' => $conversion->bid(),
-                        'effectiveFrom' => $conversion->effectiveFrom(),
-                        'price' => $conversion->price((float) $amount)
-                    ]
-                ],
-                self::HTTP_OK
-            ];
-        } catch (\Throwable $exception) {
-            return [['error' => 'Server error'], self::HTTP_INTERNAL_SERVER_ERROR];
-        }
+        return $conversion->convert((float) $nominal)->toArray();
     }
 }

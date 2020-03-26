@@ -7,12 +7,12 @@ namespace App\Application\Query;
 final class Convert
 {
     private string $code;
-    private string $amount;
+    private string $nominal;
 
-    public function __construct(string $code, string $amount)
+    public function __construct(string $code, string $nominal)
     {
         $this->code = $code;
-        $this->amount = $amount;
+        $this->nominal = $nominal;
     }
 
     public function code(): string
@@ -20,8 +20,8 @@ final class Convert
         return $this->code;
     }
 
-    public function amount(): string
+    public function nominal(): string
     {
-        return $this->amount;
+        return $this->nominal;
     }
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence;
 
-use App\Domain\Read\Conversion;
-use App\Domain\Read\ConversionRepository as ReadRepository;
+use App\Domain\Read\Quotation;
+use App\Domain\Read\QuotationRepository as ReadRepository;
 use Doctrine\DBAL\Connection;
 
-final class ConversionRepository implements ReadRepository
+final class QuotationRepository implements ReadRepository
 {
     private Connection $conn;
 
@@ -17,7 +17,7 @@ final class ConversionRepository implements ReadRepository
         $this->conn = $conn;
     }
 
-    public function byCode(string $code): ?Conversion
+    public function byCode(string $code): ?Quotation
     {
         $qb = $this->conn->createQueryBuilder()
             ->select('code, bid, updatedAt')
@@ -27,7 +27,7 @@ final class ConversionRepository implements ReadRepository
         ;
 
         if ($data = $qb->execute()->fetch()) {
-            return new Conversion($data['code'], $data['bid'], $data['updatedAt']);
+            return Quotation::create($data['code'], $data['bid'], $data['updatedAt']);
         }
 
         return null;
