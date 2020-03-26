@@ -7,4 +7,5 @@ return [
     SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle::class => ['all' => true],
     SimpleBus\SymfonyBridge\SimpleBusEventBusBundle::class => ['all' => true],
     SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle::class => ['all' => true],
+    Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
 ];

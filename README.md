@@ -11,7 +11,10 @@ $ docker-compose up -d --build
 $ docker exec -it quotation-cli composer install
 
 ##### Test mysql server is running
-$ mysql -u root -h 127.0.0.1 -P13306 -proot
+$ docker exec -it quotation-db mysql -u root -proot -e "SHOW VARIABLES LIKE \"%version%\"" 
+
+##### Migrate database
+$ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate
 
 ##### Quotations preview
 $ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
@@ -23,7 +26,7 @@ $ docker exec -it quotation-cli php bin/console quotation:sync
 $ docker exec -it quotation-cli php bin/console quotation:sync --force
 
 ##### Actual database contents
-$ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY code" 
+$ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY id" 
 
 ##### Switch to alternative quotation provider
 Edit config/packages/app.yaml ('ecb' or 'cbr')

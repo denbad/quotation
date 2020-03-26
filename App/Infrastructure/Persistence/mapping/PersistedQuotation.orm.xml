@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\PersistedQuotation" table="quotation" change-tracking-policy="DEFERRED_EXPLICIT">
+        <id name="id" type="string">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="bid" type="decimal" precision="15" scale="6"/>
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+    </entity>
+</doctrine-mapping>
+
+
+
