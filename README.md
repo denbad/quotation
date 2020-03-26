@@ -1,65 +1,65 @@
-##### Clone git repository
+#### Clone git repository
 $ git clone git@github.com:denbad/quotation.git quotation
 
-##### Change to app dir
+#### Change to app dir
 $ cd quotation
 
-##### Run containers
+#### Run containers
 $ docker-compose up -d --build
 
-##### Test php is installed
+#### Test php is installed
 docker exec -it quotation-cli php -v
 
-##### Test mysql server is running
+#### Test mysql server is running
 $ docker exec -it quotation-db mysql -u root -proot -e "SHOW VARIABLES LIKE \"%version%\"" 
 
-##### Test web server is running
+#### Test web server is running
 $ curl http://localhost:8000/
 
-##### Install app dependencies
+#### Install app dependencies
 $ docker exec -it quotation-cli composer install
 
-##### Migrate database
+#### Migrate database
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate
 
-##### Quotations preview
+#### Quotations preview
 $ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
 
-##### Quotations sync
+#### Quotations sync
 $ docker exec -it quotation-cli php bin/console quotation:sync
 
-##### Quotations forced sync
+#### Quotations forced sync
 $ docker exec -it quotation-cli php bin/console quotation:sync --force
 
-##### Actual database contents
+#### Actual database contents
 $ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY id" 
 
-##### Switch to alternative quotation provider
+#### Switch to alternative quotation provider
 Edit config/packages/app.yaml ('ecb' or 'cbr')
 
-##### Conversion malformed request 1
+#### Conversion malformed request 1
 $ curl http://localhost:8000/convert/eurusd/
 
-##### Conversion malformed request 2
+#### Conversion malformed request 2
 $ curl http://localhost:8000/convert/eurusd/?nominal=aaa
 
-##### Conversion not found example
+#### Conversion not found example
 $ curl http://localhost:8000/convert/xxxzzz/?nominal=10
 
-##### Conversion 10 eur to rub
+#### Conversion 10 eur to rub
 $ curl http://localhost:8000/convert/eurrub/?nominal=10
 
-##### Conversion 100 rub to eur
+#### Conversion 100 rub to eur
 $ curl http://localhost:8000/convert/rubeur/?nominal=100
 
-##### Conversion 1 xdr to uzs
+#### Conversion 1 xdr to uzs
 $ curl http://localhost:8000/convert/xdruzs/?nominal=1
 
-##### Run static analysis
+#### Run static analysis
 $ docker exec -it quotation-cli 
 
-##### Run unit tests
+#### Run unit tests
 $ docker exec -it quotation-cli 
 
-##### Run integration tests
+#### Run integration tests
 $ docker exec -it quotation-cli
