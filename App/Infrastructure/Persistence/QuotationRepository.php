@@ -20,14 +20,14 @@ final class QuotationRepository implements ReadRepository
     public function byCode(string $code): ?Quotation
     {
         $qb = $this->conn->createQueryBuilder()
-            ->select('code, bid, updatedAt')
+            ->select('id, bid, updated_at')
             ->from('quotation')
             ->where('id = :code')
             ->setParameter('code', $code)
         ;
 
         if ($data = $qb->execute()->fetch()) {
-            return Quotation::create($data['code'], $data['bid'], $data['updatedAt']);
+            return Quotation::create($data['id'], (float) $data['bid'], $data['updated_at']);
         }
 
         return null;

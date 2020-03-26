@@ -5,11 +5,11 @@ services:
         container_name: quotation-cli
         depends_on:
             - db
+        links:
+            - db:mysql
         build:
             context: .
             dockerfile: .docker/cli/Dockerfile
-        links:
-            - db:mysql
         volumes:
             - .:/app
 
@@ -22,3 +22,17 @@ services:
             - .docker.env.prod
         volumes:
             - ./.docker-volumes/db:/var/lib/mysql
+
+    server:
+        container_name: quotation-server
+        depends_on:
+            - db
+        links:
+            - db:mysql
+        build:
+            context: .
+            dockerfile: .docker/server/Dockerfile
+        ports:
+            - 8000:8000
+        volumes:
+            - .:/app

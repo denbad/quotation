@@ -8,6 +8,6 @@ final class NotFound extends \RuntimeException
 {
     public static function notSupported(string $code): self
     {
-        return new self(sprintf('Currency code "%s" is not supported', $code));
+        return new self('Currency code not supported');
     }
 }

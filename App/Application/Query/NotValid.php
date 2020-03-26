@@ -8,11 +8,11 @@ final class NotValid extends \RuntimeException
 {
     public static function emptyNominal(): self
     {
-        return new self('Empty or missing "nominal" parameter.');
+        return new self('Empty or missing parameter: nominal');
     }
 
     public static function malformedNominal(string $nominal): self
     {
-        return new self(sprintf('Malformed "nominal" parameter: "%s".', $nominal));
+        return new self('Malformed parameter: nominal',);
     }
 }

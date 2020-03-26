@@ -66,5 +66,5 @@ services:
 
     App\Application\Query\ConvertHandler:
         bind:
-            App\Domain\Read\QuotationRepository: 'App\Infrastructure\Persistence\QuotationRepository'
+            App\Domain\Read\QuotationRepository: '@App\Infrastructure\Persistence\QuotationRepository'
 
