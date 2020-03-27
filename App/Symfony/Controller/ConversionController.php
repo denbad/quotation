@@ -18,13 +18,19 @@ final class ConversionController
     public function __invoke(Request $request, string $code, ConvertHandler $handler): Response
     {
         try {
-            return new JsonResponse($handler(new Convert($code, $request->query->get('nominal', ''))));
+            $httpCode = Response::HTTP_OK;
+            $body = $handler(new Convert($code, $request->query->get('nominal', '')));
         } catch (NotValid $exception) {
-            return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
+            $httpCode = Response::HTTP_BAD_REQUEST;
+            $body = $exception->violations();
         } catch (NotFound $exception) {
-            return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
+            $httpCode = Response::HTTP_NOT_FOUND;
+            $body = $exception->getMessage();
         } catch (Throwable $exception) {
-            return new JsonResponse(['error' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $body = 'Internal server error';
         }
+
+        return new JsonResponse([$httpCode => $body], $httpCode);
     }
 }

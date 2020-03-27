@@ -23,12 +23,21 @@ $ curl -I http://localhost:8000/
 ### Install app dependencies
 $ docker exec -it quotation-cli composer install
 
-### Migrate database
+### Migrate both databases
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate
 
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --env=test
 
 # Usage
+
+### Run static analysis
+$ docker exec -it quotation-cli vendor/bin/phpstan analyse App --level max -c phpstan.neon
+
+### Run unit tests
+$ docker exec -it quotation-cli php bin/phpunit --testsuite unit
+
+### Run integration tests against test database
+$ docker exec -it quotation-cli php bin/phpunit --testsuite integration
 
 ### Quotation sync preview
 $ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
@@ -39,7 +48,7 @@ $ docker exec -it quotation-cli php bin/console quotation:sync
 ### Quotation forced sync
 $ docker exec -it quotation-cli php bin/console quotation:sync --force
 
-### Actual dev database contents
+### Actual database contents
 $ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY id" 
 
 $ docker exec -it quotation-db-test mysql -u root -ptest -e "SELECT * FROM app.quotation ORDER BY id"
@@ -64,14 +73,5 @@ $ curl http://localhost:8000/convert/rubeur/?nominal=100
 
 ### Conversion 1 xdr to uzs
 $ curl http://localhost:8000/convert/xdruzs/?nominal=1
-
-### Run static analysis
-$ docker exec -it quotation-cli vendor/bin/phpstan analyse App tests --level max -c phpstan.neon
-
-### Run unit tests
-$ docker exec -it quotation-cli php bin/phpunit --testsuite unit
-
-### Run integration tests against test database
-$ docker exec -it quotation-cli php bin/phpunit --testsuite integration
 
 
