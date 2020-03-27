@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Domain\Write;
 
 use Assert\Assertion;
+use DateTimeImmutable;
 
 class PersistedQuotation
 {
     private string $id;
     private float $bid;
-    private \DateTimeImmutable $createdAt;
-    private \DateTimeImmutable $updatedAt;
+    private DateTimeImmutable $createdAt;
+    private DateTimeImmutable $updatedAt;
 
     public function __construct(string $code, float $bid)
     {
@@ -20,13 +21,13 @@ class PersistedQuotation
 
         $this->id = $code;
         $this->bid = $bid;
-        $this->createdAt = new \DateTimeImmutable();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function refresh(float $bid): void
     {
         $this->bid = $bid;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 }

@@ -21,10 +21,10 @@ final class ConvertHandler
             throw NotValid::emptyNominal();
         }
         if (!preg_match('#^([\d]+([.][\d]*)?|[.][\d]+)$#', $nominal)) {
-            throw NotValid::malformedNominal($nominal);
+            throw NotValid::malformedNominal();
         }
         if (!$conversion = $this->quotations->byCode($query->code())) {
-            throw NotFound::notSupported($query->code());
+            throw NotFound::notSupported();
         }
 
         return $conversion->convert((float) $nominal)->toArray();

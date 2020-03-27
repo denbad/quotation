@@ -23,7 +23,7 @@ services:
         class: 'GuzzleHttp\Client'
         factory: ['@App\Infrastructure\QuotationProvider\ClientFactory', 'create']
 
-    app.infrastructure.quotation_provider.default_loader: ~ # see QuotationLoaderPass
+    app.infrastructure.quotation_provider.default_loader: ~
 
     App\Infrastructure\QuotationProvider\EcbLoader:
         bind:

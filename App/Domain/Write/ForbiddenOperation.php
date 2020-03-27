@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Write;
 
-final class ForbiddenOperation extends \LogicException
+use LogicException;
+
+final class ForbiddenOperation extends LogicException
 {
     public static function notFlipable(string $code): self
     {

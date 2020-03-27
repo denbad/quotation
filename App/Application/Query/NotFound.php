@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Query;
 
-final class NotFound extends \RuntimeException
+use RuntimeException;
+
+final class NotFound extends RuntimeException
 {
-    public static function notSupported(string $code): self
+    public static function notSupported(): self
     {
         return new self('Currency code not supported');
     }

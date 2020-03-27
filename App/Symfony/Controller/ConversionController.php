@@ -11,6 +11,7 @@ use App\Application\Query\NotValid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Throwable;
 
 final class ConversionController
 {
@@ -22,7 +23,7 @@ final class ConversionController
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         } catch (NotFound $exception) {
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return new JsonResponse(['error' => 'Internal server error'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

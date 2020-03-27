@@ -5,8 +5,10 @@ services:
         container_name: quotation-cli
         depends_on:
             - db
+            - db-test
         links:
             - db:mysql
+            - db-test:mysql-test
         build:
             context: .
             dockerfile: .docker/cli/Dockerfile
@@ -23,12 +25,24 @@ services:
         volumes:
             - ./.docker-volumes/db:/var/lib/mysql
 
+    db-test:
+        container_name: quotation-db-test
+        image: percona:8.0.19-10
+        ports:
+            - 13307:3306
+        env_file:
+            - .docker.env.test
+        volumes:
+            - ./.docker-volumes/db-test:/var/lib/mysql
+
     server:
         container_name: quotation-server
         depends_on:
             - db
+            - db-test
         links:
             - db:mysql
+            - db-test:mysql-test
         build:
             context: .
             dockerfile: .docker/server/Dockerfile
