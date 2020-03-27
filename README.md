@@ -23,6 +23,7 @@ $ docker exec -it quotation-cli composer install
 
 ### Migrate database
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate
+
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --env=test
 
 # Usage
@@ -38,6 +39,7 @@ $ docker exec -it quotation-cli php bin/console quotation:sync --force
 
 ### Actual dev database contents
 $ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY id" 
+
 $ docker exec -it quotation-db-test mysql -u root -ptest -e "SELECT * FROM app.quotation ORDER BY id"
 
 ### Switch to alternative quotation provider
