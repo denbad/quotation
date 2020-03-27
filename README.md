@@ -12,8 +12,10 @@ $ docker-compose up -d --build
 ### Test php is installed
 $ docker exec -it quotation-cli php -v
 
-### Test mysql server is running
+### Test both mysql servers are running
 $ docker exec -it quotation-db mysql -u root -proot -e "SHOW VARIABLES LIKE \"%version%\"" 
+
+$ docker exec -it quotation-db-test mysql -u root -ptest -e "SHOW VARIABLES LIKE \"%version%\""
 
 ### Test web server is running
 $ curl -I http://localhost:8000/
