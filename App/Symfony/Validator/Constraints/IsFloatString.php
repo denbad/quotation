@@ -12,7 +12,7 @@ final class IsFloatString extends Regex
     public function __construct()
     {
         parent::__construct([
-            'message' => 'Float value expected.',
+            'message' => 'Float value expected',
             'pattern' => '#^([\d]+([.][\d]*)?|[.][\d]+)$#'
         ]);
     }

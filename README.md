@@ -28,7 +28,7 @@ $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate
 
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --env=test
 
-# Usage
+# Run tests
 
 ### Run static analysis
 $ docker exec -it quotation-cli vendor/bin/phpstan analyse App --level max -c phpstan.neon
@@ -36,8 +36,12 @@ $ docker exec -it quotation-cli vendor/bin/phpstan analyse App --level max -c ph
 ### Run unit tests
 $ docker exec -it quotation-cli php bin/phpunit --testsuite unit
 
-### Run integration tests against test database
-$ docker exec -it quotation-cli php bin/phpunit --testsuite integration
+### Run integration tests
+$ docker exec -it quotation-cli php bin/phpunit --testsuite command
+
+$ docker exec -it quotation-cli php bin/console quotation:sync --force --env=test && docker exec -it quotation-cli php bin/phpunit --testsuite controller
+
+# Usage
 
 ### Quotation sync preview
 $ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
@@ -65,13 +69,13 @@ $ curl http://localhost:8000/convert/eurusd/?nominal=aaa
 ### Conversion not supported example
 $ curl http://localhost:8000/convert/xxxzzz/?nominal=10
 
-### Conversion 10 eur to rub
+### Base conversion 10 eur to rub
 $ curl http://localhost:8000/convert/eurrub/?nominal=10
 
-### Conversion 100 rub to eur
+### Base conversion 100 rub to eur
 $ curl http://localhost:8000/convert/rubeur/?nominal=100
 
-### Conversion 1 xdr to uzs
-$ curl http://localhost:8000/convert/xdruzs/?nominal=1
+### Cross conversion 200 rub to gbp
+$ curl http://localhost:8000/convert/rubgbp/?nominal=200
 
 
