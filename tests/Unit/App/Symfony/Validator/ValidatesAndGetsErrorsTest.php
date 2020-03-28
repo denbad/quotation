@@ -19,8 +19,6 @@ final class ValidatesAndGetsErrorsTest extends TestCase
     private string $notBlankMessage;
     private string $emailNotValidMessage;
     private array $constraints;
-    private ValidatorInterface $validator;
-    private PropertyAccessorInterface $propertyAccessor;
     private Sut $sut;
 
     public function testValidateEmptyEmail(): void
@@ -51,9 +49,7 @@ final class ValidatesAndGetsErrorsTest extends TestCase
             new Email(['message' => $this->emailNotValidMessage])]])
         ];
 
-        $this->validator = Validation::createValidator();
-        $this->propertyAccessor = new PropertyAccessor();
-        $this->sut = new Sut($this->validator, $this->propertyAccessor);
+        $this->sut = new Sut(Validation::createValidator(), new PropertyAccessor());
     }
 }
 

@@ -42,9 +42,8 @@ final class RefreshHandlerTest extends TestCase
     public function testInvokeRefresh(): void
     {
         $code = 'AAABBB';
-        $bid = 7.99;
         $refreshedBid = 8.99;
-        $quotation = $this->createQuotation($code, $bid);
+        $quotation = $this->createQuotation($code, 7.99);
 
         $this->quotations
             ->expects($this->any())
