@@ -5,13 +5,34 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Infrastructure\QuotationProvider;
 
 use App\Infrastructure\QuotationProvider\CbrLoader;
+use App\Infrastructure\QuotationProvider\Loader;
 use GuzzleHttp\ClientInterface;
-use PHPUnit\Framework\TestCase;
 
-final class CbrLoaderTest extends TestCase
+final class CbrLoaderTest extends BaseLoaderTest
 {
-    public function testLoad(): void
+    protected function requestArguments(): array
     {
-        $this->markTestIncomplete();
+        return ['GET', 'https://www.cbr.ru/scripts/XML_daily.asp'];
+    }
+
+    protected function loader(ClientInterface $client): Loader
+    {
+        return new CbrLoader($client);
+    }
+
+    protected function contents(): string
+    {
+        return file_get_contents(__DIR__ . '/cbrResponse.xml');
+    }
+
+    protected function expected(): array
+    {
+        return [
+            'base' => 'JPY',
+            'quote' => 'RUB',
+            'nominal' => '100',
+            'bid' => '71.4027'
+        ];
     }
 }
+
