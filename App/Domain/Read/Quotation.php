@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Read;
 
+use Assert\Assertion;
+
 final class Quotation
 {
     private string $code;
@@ -13,6 +15,10 @@ final class Quotation
 
     private function __construct(string $code, float $bid, float $nominal, string $effectiveFrom)
     {
+        Assertion::length($code, 6);
+        Assertion::greaterThan($bid, 0);
+        Assertion::greaterThan($nominal, 0);
+
         $this->code = $code;
         $this->bid = $bid;
         $this->nominal = $nominal;

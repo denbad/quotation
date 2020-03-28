@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\App\Application\Query;
+namespace App\Tests\Unit\Application\Query;
 
 use App\Application\Query\Convert;
 use App\Application\Query\ConvertHandler;

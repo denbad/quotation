@@ -32,7 +32,7 @@ final class Quotation
     public function flip(): self
     {
         if (!$this->isFlipable()) {
-            throw ForbiddenOperation::notFlipable($this->code());
+            throw new NotFlipable($this->code());
         }
 
         return new self($this->quote, $this->base, 1 / $this->bid);
@@ -43,7 +43,7 @@ final class Quotation
         if ($this->quote !== $quotation->base()) {
             return false;
         }
-        if ($this->equals($quotation)) {
+        if ($this->code() === $quotation->code()) {
             return false;
         }
         if ($this->base === $quotation->quote()) {
@@ -56,7 +56,7 @@ final class Quotation
     public function cross(self $quotation): self
     {
         if (!$this->isCrossable($quotation)) {
-            throw ForbiddenOperation::notCrossable($this->code(), $quotation->code());
+            throw new NotCrossable($this->code(), $quotation->code());
         }
 
         return new self($this->base, $quotation->quote(), $this->bid * $quotation->bid());
@@ -80,10 +80,5 @@ final class Quotation
     public function code(): string
     {
         return $this->base.$this->quote;
-    }
-
-    private function equals(self $quotation): bool
-    {
-        return $this->code() === $quotation->code();
     }
 }

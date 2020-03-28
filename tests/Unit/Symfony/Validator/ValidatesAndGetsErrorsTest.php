@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\App\Symfony\Validator;
+namespace App\Tests\Unit\Symfony\Validator;
 
 use App\Symfony\Validator\ValidatesAndGetsErrors;
 use PHPUnit\Framework\TestCase;

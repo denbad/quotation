@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\App\Application\Command;
+namespace App\Tests\Unit\Application\Command;
 
 use App\Application\Command\Refresh;
 use App\Application\Command\RefreshHandler;
