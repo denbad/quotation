@@ -10,16 +10,16 @@ final class QuotationTest extends TestCase
 {
     public function testCreate(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testConvert(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testToArray(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 }

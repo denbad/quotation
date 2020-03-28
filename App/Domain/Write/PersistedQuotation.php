@@ -30,4 +30,19 @@ class PersistedQuotation
         $this->bid = $bid;
         $this->updatedAt = new DateTimeImmutable();
     }
+
+    public function equals(self $quotation): bool
+    {
+        return $this->code() === $quotation->code() && $this->bid === $quotation->bid();
+    }
+
+    public function code(): string
+    {
+        return $this->id;
+    }
+
+    public function bid(): float
+    {
+        return $this->bid;
+    }
 }

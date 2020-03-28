@@ -10,6 +10,6 @@ final class EcbLoaderTest extends TestCase
 {
     public function testLoad(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 }

@@ -10,26 +10,26 @@ final class QuotationTest extends TestCase
 {
     public function testConstruct(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testIsFlipable(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testFlip(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testIsCrossable(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testCross(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 }

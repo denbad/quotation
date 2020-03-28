@@ -23,7 +23,7 @@ $ curl -I http://localhost:8000/
 ### Install app dependencies
 $ docker exec -it quotation-cli composer install
 
-### Migrate both databases
+### Migrate both databases  
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate
 
 $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --env=test

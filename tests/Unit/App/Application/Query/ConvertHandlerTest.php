@@ -10,6 +10,6 @@ final class ConvertHandlerTest extends TestCase
 {
     public function testInvoke(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 }

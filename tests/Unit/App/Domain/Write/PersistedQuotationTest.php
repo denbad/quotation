@@ -10,11 +10,16 @@ final class PersistedQuotationTest extends TestCase
 {
     public function testConstruct(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testRefresh(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
+    }
+
+    public function testEquals(): void
+    {
+        $this->markTestIncomplete();
     }
 }

@@ -10,11 +10,11 @@ final class QuotationProviderTest extends TestCase
 {
     public function testName(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testQuotations(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 }

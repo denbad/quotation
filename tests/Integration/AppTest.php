@@ -10,31 +10,31 @@ final class AppTest extends WebTestCase
 {
     public function testWithMissingNominal(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testWithMalformedNominal(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function testWhenNotSupported(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function test10EurToRub(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function test100RubToEur(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 
     public function test1ZdrToUzs(): void
     {
-        $this->fail();
+        $this->markTestIncomplete();
     }
 }
