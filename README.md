@@ -30,12 +30,6 @@ $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --en
 
 # Run tests
 
-### Validate coding standards
-$ docker exec -it quotation-cli php vendor/bin/php-cs-fixer fix --dry-run --verbose --config=.php_cs.dist App tests
-
-### Run static analysis
-$ docker exec -it quotation-cli vendor/bin/phpstan analyse --level max -c phpstan.neon App tests
-
 ### Run unit tests
 $ docker exec -it quotation-cli php bin/phpunit --testsuite unit
 
@@ -43,6 +37,12 @@ $ docker exec -it quotation-cli php bin/phpunit --testsuite unit
 $ docker exec -it quotation-cli php bin/phpunit --testsuite command
 
 $ docker exec -it quotation-cli php bin/console quotation:sync --force --env=test && docker exec -it quotation-cli php bin/phpunit --testsuite controller
+
+### Validate coding standards
+$ docker exec -it quotation-cli php vendor/bin/php-cs-fixer fix --dry-run --verbose --config=.php_cs.dist App tests
+
+### Run static analysis
+$ docker exec -it quotation-cli vendor/bin/phpstan analyse --level max -c phpstan.neon App tests
 
 # Import quotations (currency rates)
 
