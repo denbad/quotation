@@ -30,6 +30,9 @@ $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --en
 
 # Run tests
 
+### Validate coding standards
+$ docker exec -it quotation-cli php vendor/bin/php-cs-fixer fix --dry-run --verbose --config=.php_cs App tests
+
 ### Run static analysis
 $ docker exec -it quotation-cli vendor/bin/phpstan analyse App tests --level max -c phpstan.neon
 

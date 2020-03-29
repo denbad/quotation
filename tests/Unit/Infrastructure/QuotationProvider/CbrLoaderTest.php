@@ -22,7 +22,7 @@ final class CbrLoaderTest extends BaseLoaderTest
 
     protected function contents(): string
     {
-        return (string) file_get_contents(__DIR__ . '/cbrResponse.xml');
+        return (string) file_get_contents(__DIR__.'/cbrResponse.xml');
     }
 
     protected function expected(): array
@@ -31,8 +31,7 @@ final class CbrLoaderTest extends BaseLoaderTest
             'base' => 'JPY',
             'quote' => 'RUB',
             'nominal' => '100',
-            'bid' => '71.4027'
+            'bid' => '71.4027',
         ];
     }
 }
-

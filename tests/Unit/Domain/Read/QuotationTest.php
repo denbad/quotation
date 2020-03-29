@@ -15,7 +15,7 @@ final class QuotationTest extends TestCase
             'code' => 'XXXZZZ',
             'bid' => 10.00,
             'nominal' => 1,
-            'effectiveFrom' => '2020-03-26 06:01:26'
+            'effectiveFrom' => '2020-03-26 06:01:26',
         ];
         $quotation = Quotation::create($data['code'], $data['bid'], $data['effectiveFrom']);
 

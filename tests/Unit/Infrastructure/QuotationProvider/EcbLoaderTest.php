@@ -22,7 +22,7 @@ final class EcbLoaderTest extends BaseLoaderTest
 
     protected function contents(): string
     {
-        return (string) file_get_contents(__DIR__ . '/ecbResponse.xml');
+        return (string) file_get_contents(__DIR__.'/ecbResponse.xml');
     }
 
     protected function expected(): array
@@ -31,7 +31,7 @@ final class EcbLoaderTest extends BaseLoaderTest
             'base' => 'EUR',
             'quote' => 'JPY',
             'nominal' => '1',
-            'bid' => '119.36'
+            'bid' => '119.36',
         ];
     }
 }

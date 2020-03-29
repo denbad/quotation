@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -46,7 +46,7 @@ final class ValidatesAndGetsErrorsTest extends TestCase
 
         $this->constraints = [new Collection(['email' => [
             new NotBlank(['message' => $this->notBlankMessage]),
-            new Email(['message' => $this->emailNotValidMessage])]])
+            new Email(['message' => $this->emailNotValidMessage]), ]]),
         ];
 
         $this->sut = new Sut(Validation::createValidator(), new PropertyAccessor());
@@ -55,16 +55,16 @@ final class ValidatesAndGetsErrorsTest extends TestCase
 
 final class Sut
 {
-   use ValidatesAndGetsErrors;
+    use ValidatesAndGetsErrors;
 
-   public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor)
-   {
-       $this->validator = $validator;
-       $this->propertyAccessor = $propertyAccessor;
-   }
+    public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor)
+    {
+        $this->validator = $validator;
+        $this->propertyAccessor = $propertyAccessor;
+    }
 
-   public function doValidate(array $input, array $constraint): array
-   {
-       return $this->validate($input, $constraint);
-   }
+    public function doValidate(array $input, array $constraint): array
+    {
+        return $this->validate($input, $constraint);
+    }
 }

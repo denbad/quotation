@@ -22,7 +22,7 @@ final class QuotationSyncCommandTest extends KernelTestCase
         $commandTester->execute([
             '--loader' => QuotationProvider::LOADER_ECB,
             '--force' => true,
-            '--dry-run' => true
+            '--dry-run' => true,
         ]);
         $output = $commandTester->getDisplay();
 
@@ -41,7 +41,7 @@ final class QuotationSyncCommandTest extends KernelTestCase
         $commandTester->execute([
             '--loader' => QuotationProvider::LOADER_CBR,
             '--force' => true,
-            '--dry-run' => true
+            '--dry-run' => true,
         ]);
         $output = $commandTester->getDisplay();
 

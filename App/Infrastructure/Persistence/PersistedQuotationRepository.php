@@ -26,7 +26,6 @@ final class PersistedQuotationRepository implements WriteRepository
     public function byCode(string $code): ?PersistedQuotation
     {
         /** @var PersistedQuotation $quotation */
-
         $quotation = $this->getRepository()->find($code);
 
         return $quotation;
@@ -35,7 +34,6 @@ final class PersistedQuotationRepository implements WriteRepository
     public function save(PersistedQuotation $quotation): void
     {
         /** @var EntityManager $manager */
-
         $manager = $this->getManager();
 
         $manager->persist($quotation);
@@ -45,7 +43,6 @@ final class PersistedQuotationRepository implements WriteRepository
     private function getManager(): ObjectManager
     {
         /** @var ObjectManager $manager */
-
         $manager = $this->managerRegistry->getManagerForClass($this->class);
 
         Assertion::notNull($manager);

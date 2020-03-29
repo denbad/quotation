@@ -30,7 +30,7 @@ final class CbrLoader extends BaseLoader
                 'base' => $entry['CharCode'],
                 'quote' => $this->code(),
                 'nominal' => $entry['Nominal'],
-                'bid' => str_replace(',', '.', $entry['Value'])
+                'bid' => str_replace(',', '.', $entry['Value']),
             ];
         }, $this->xmlToArray($contents)['Valute']);
     }

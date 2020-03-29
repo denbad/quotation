@@ -10,13 +10,15 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class Conversion extends Collection
 {
-   public function __construct()
-   {
-       parent::__construct(['nominal' => [
-           new NotBlank(['message' => 'This value should not be blank']),
-           new IsFloatString()]]
-       );
-   }
+    public function __construct()
+    {
+        parent::__construct([
+            'nominal' => [
+                new NotBlank(['message' => 'This value should not be blank']),
+                new IsFloatString(),
+            ],
+        ]);
+    }
 
     public function validatedBy(): string
     {

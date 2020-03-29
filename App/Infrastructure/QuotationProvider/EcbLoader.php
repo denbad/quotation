@@ -27,11 +27,12 @@ final class EcbLoader extends BaseLoader
     {
         return array_map(function (array $entry): array {
             $entry = array_shift($entry);
+
             return [
                 'base' => $this->code(),
                 'quote' => $entry['currency'],
                 'nominal' => 1,
-                'bid' => $entry['rate']
+                'bid' => $entry['rate'],
             ];
         }, $this->xmlToArray($contents)['Cube']['Cube']['Cube']);
     }

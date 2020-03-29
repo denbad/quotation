@@ -42,12 +42,12 @@ final class QuotationProvider implements Provider
 
     private function transform(array $entries, array &$quotations): void
     {
-        array_walk($entries, static function (array $entry) use (&$quotations) : void {
+        array_walk($entries, static function (array $entry) use (&$quotations): void {
             $quotation = new Quotation(
-                (string)$entry['base'],
-                (string)$entry['quote'],
-                (float)$entry['bid'],
-                (int)$entry['nominal']
+                (string) $entry['base'],
+                (string) $entry['quote'],
+                (float) $entry['bid'],
+                (int) $entry['nominal']
             );
             $quotations[$quotation->code()] = $quotation;
         });
@@ -65,8 +65,8 @@ final class QuotationProvider implements Provider
 
     private function addCrosses(array &$quotations): void
     {
-        array_walk($quotations, static function (Quotation $quotationA) use (&$quotations) : void {
-            array_walk($quotations, static function (Quotation $quotationB) use (&$quotations, $quotationA) : void {
+        array_walk($quotations, static function (Quotation $quotationA) use (&$quotations): void {
+            array_walk($quotations, static function (Quotation $quotationB) use (&$quotations, $quotationA): void {
                 if ($quotationA->isCrossable($quotationB)) {
                     $crossed = $quotationA->cross($quotationB);
                     $quotations[$crossed->code()] = $crossed;

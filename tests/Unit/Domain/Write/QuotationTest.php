@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Write;
 
-use App\Domain\Write\Quotation;
 use App\Domain\Write\NotCrossable;
 use App\Domain\Write\NotFlipable;
+use App\Domain\Write\Quotation;
 use PHPUnit\Framework\TestCase;
 
 final class QuotationTest extends TestCase

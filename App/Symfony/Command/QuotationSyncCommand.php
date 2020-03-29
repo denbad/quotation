@@ -41,7 +41,6 @@ final class QuotationSyncCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         /** @var string $loader */
-
         $loader = $input->getOption('loader');
 
         if (!$input->getOption('force')) {
@@ -49,6 +48,7 @@ final class QuotationSyncCommand extends Command
             $message = sprintf('<info>Proceed with sync from <comment>"%s"</comment></info> ? (Y/n)', $provider);
             if (!$this->getHelper('question')->ask($input, $output, new ConfirmationQuestion($message, false))) {
                 $output->writeln('<error>Quotation sync canceled!</error>');
+
                 return 0;
             }
         }

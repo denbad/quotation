@@ -7,8 +7,8 @@ namespace App\Symfony\DependencyInjection\Compiler;
 use App\Infrastructure\QuotationProvider\QuotationProvider;
 use App\Symfony\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class QuotationLoaderPass implements CompilerPassInterface
