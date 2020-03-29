@@ -21,7 +21,7 @@ services:
         ports:
             - 13306:3306
         env_file:
-            - .docker.env.prod
+            - .docker.env
         volumes:
             - ./.docker-volumes/db:/var/lib/mysql
 
