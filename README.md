@@ -7,9 +7,7 @@ $ git clone git@github.com:denbad/quotation.git quotation
 $ cd quotation
 
 ### Run containers
-$ docker-compose build
-
-$ docker-compose up -d
+$ docker-compose up -d --build
 
 ### Test php is installed
 $ docker exec -it quotation-cli php -v
