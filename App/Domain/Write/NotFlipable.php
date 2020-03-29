@@ -10,6 +10,6 @@ final class NotFlipable extends LogicException
 {
     public function __construct(string $code)
     {
-        parent::__construct(sprintf('Quotation %s is not flipable.', $code));
+        parent::__construct(sprintf('Quotation %s is not flipable', $code));
     }
 }

@@ -9,39 +9,45 @@ use App\Domain\Write\QuotationProvider as Provider;
 
 final class QuotationProvider implements Provider
 {
-    private Loader $loader;
+    private array $loaders;
 
-    public function __construct(Loader $loader)
+    public function __construct(array $loaders = [])
     {
-        $this->loader = $loader;
+        array_walk($loaders, function (Loader $loader, string $alias): void {
+            $this->addLoader($alias, $loader);
+        });
     }
 
-    public function name(): string
+    public function addLoader(string $alias, Loader $loader)
     {
-        return $this->loader->name();
+        $this->loaders[$alias] = $loader;
     }
 
-    public function quotations(): array
+    public function name(string $loader = self::LOADER_DEFAULT): string
     {
+        return $this->loader($loader)->name();
+    }
+
+    public function quotations(string $loader = self::LOADER_DEFAULT): array
+    {
+        $entries = $this->loader($loader)->load();
+
         $quotations = [];
-
-        $this->transform($quotations);
+        $this->transform($entries, $quotations);
         $this->addFlips($quotations);
         $this->addCrosses($quotations);
 
         return $quotations;
     }
 
-    private function transform(array &$quotations): void
+    private function transform(array $entries, array &$quotations): void
     {
-        $entries = $this->loader->load();
-
         array_walk($entries, static function (array $entry) use (&$quotations) : void {
             $quotation = new Quotation(
-                (string) $entry['base'],
-                (string) $entry['quote'],
-                (float) $entry['bid'],
-                (int) $entry['nominal']
+                (string)$entry['base'],
+                (string)$entry['quote'],
+                (float)$entry['bid'],
+                (int)$entry['nominal']
             );
             $quotations[$quotation->code()] = $quotation;
         });
@@ -67,5 +73,14 @@ final class QuotationProvider implements Provider
                 }
             });
         });
+    }
+
+    private function loader(string $alias): Loader
+    {
+        if (!array_key_exists($alias, $this->loaders)) {
+            throw new LoaderNotRegistered($alias);
+        }
+
+        return $this->loaders[$alias];
     }
 }

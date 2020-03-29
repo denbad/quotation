@@ -37,9 +37,7 @@ services:
         tags:
             - { name: 'quotation_loader', alias: 'cbr' }
 
-    App\Infrastructure\QuotationProvider\QuotationProvider:
-        bind:
-            App\Infrastructure\QuotationProvider\Loader: '@app.infrastructure.quotation_provider.default_loader'
+    App\Infrastructure\QuotationProvider\QuotationProvider: ~
 
     # Repository
 

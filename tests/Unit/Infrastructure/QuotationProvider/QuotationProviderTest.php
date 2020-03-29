@@ -34,7 +34,7 @@ final class QuotationProviderTest extends TestCase
             ])
         ;
 
-        $provider = new QuotationProvider($loader);
+        $provider = new QuotationProvider([QuotationProvider::LOADER_DEFAULT => $loader]);
 
         $this->assertEquals($provider->quotations(), [
             'EURUSD' => new Quotation('EUR', 'USD', 1.0977),

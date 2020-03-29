@@ -31,7 +31,7 @@ $ docker exec -it quotation-cli php bin/console doctrine:migrations:migrate --en
 # Run tests
 
 ### Run static analysis
-$ docker exec -it quotation-cli vendor/bin/phpstan analyse App --level max -c phpstan.neon
+$ docker exec -it quotation-cli vendor/bin/phpstan analyse App tests --level max -c phpstan.neon
 
 ### Run unit tests
 $ docker exec -it quotation-cli php bin/phpunit --testsuite unit
@@ -41,7 +41,7 @@ $ docker exec -it quotation-cli php bin/phpunit --testsuite command
 
 $ docker exec -it quotation-cli php bin/console quotation:sync --force --env=test && docker exec -it quotation-cli php bin/phpunit --testsuite controller
 
-# Usage
+# Import quotations (currency rates)
 
 ### Quotation sync preview
 $ docker exec -it quotation-cli php bin/console quotation:sync --dry-run
@@ -52,13 +52,19 @@ $ docker exec -it quotation-cli php bin/console quotation:sync
 ### Quotation forced sync
 $ docker exec -it quotation-cli php bin/console quotation:sync --force
 
+### Switch to alternative quotation provider
+Set default loader in config/packages/app.yaml ('ecb', 'cbr'), or pass manually:
+
+$ docker exec -it quotation-cli php bin/console quotation:sync --loader=cbr
+
+$ docker exec -it quotation-cli php bin/console quotation:sync --loader=ecb
+
 ### Actual database contents
 $ docker exec -it quotation-db mysql -u root -proot -e "SELECT * FROM app.quotation ORDER BY id" 
 
 $ docker exec -it quotation-db-test mysql -u root -ptest -e "SELECT * FROM app.quotation ORDER BY id"
 
-### Switch to alternative quotation provider
-Edit config/packages/app.yaml ('ecb' or 'cbr')
+# REST api
 
 ### Conversion malformed request 1
 $ curl http://localhost:8000/convert/eurusd/

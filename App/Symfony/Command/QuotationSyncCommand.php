@@ -32,6 +32,7 @@ final class QuotationSyncCommand extends Command
     protected function configure(): void
     {
         $this
+            ->addOption('loader', null, InputOption::VALUE_REQUIRED, '', QuotationProvider::LOADER_DEFAULT)
             ->addOption('dry-run', null, InputOption::VALUE_NONE)
             ->addOption('force', null, InputOption::VALUE_NONE)
         ;
@@ -39,8 +40,10 @@ final class QuotationSyncCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        $loader = $input->getOption('loader');
+
         if (!$input->getOption('force')) {
-            $provider = $this->provider->name();
+            $provider = $this->provider->name($loader);
             $message = sprintf('<info>Proceed with sync from <comment>"%s"</comment></info> ? (Y/n)', $provider);
             if (!$this->getHelper('question')->ask($input, $output, new ConfirmationQuestion($message, false))) {
                 $output->writeln('<error>Quotation sync canceled!</error>');
@@ -50,7 +53,7 @@ final class QuotationSyncCommand extends Command
 
         $output->writeln('<comment>Loading...</comment>');
 
-        $quotations = $this->provider->quotations();
+        $quotations = $this->provider->quotations($loader);
 
         if ($input->getOption('dry-run')) {
             (new Table($output))
