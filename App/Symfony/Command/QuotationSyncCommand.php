@@ -40,6 +40,8 @@ final class QuotationSyncCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        /** @var string $loader */
+
         $loader = $input->getOption('loader');
 
         if (!$input->getOption('force')) {

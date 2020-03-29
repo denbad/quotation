@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class RefreshHandlerTest extends TestCase
 {
     private array $messages;
-    private PersistedQuotationRepository $quotations;
+    private $quotations;
     private RefreshHandler $handler;
 
     public function testInvokeCreate(): void
@@ -67,7 +67,11 @@ final class RefreshHandlerTest extends TestCase
     {
         $this->messages = [];
         $this->quotations = $this->getMockBuilder(PersistedQuotationRepository::class)->getMock();
-        $this->handler = new RefreshHandler($this->quotations);
+
+        /** @var PersistedQuotationRepository $quotations */
+        $quotations = $this->quotations;
+
+        $this->handler = new RefreshHandler($quotations);
     }
 
     private function createQuotation(string $code, float $bid): PersistedQuotation

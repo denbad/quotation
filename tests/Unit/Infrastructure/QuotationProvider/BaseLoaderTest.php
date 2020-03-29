@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\QuotationProvider;
 
-use App\Infrastructure\QuotationProvider\CbrLoader;
 use App\Infrastructure\QuotationProvider\Loader;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
@@ -39,6 +38,9 @@ abstract class BaseLoaderTest extends TestCase
             ->with(...$this->requestArguments())
             ->willReturn($response)
         ;
+
+        /** @var ClientInterface $client */
+        $client = $client;
 
         $quotations = $this->loader($client)->load();
 

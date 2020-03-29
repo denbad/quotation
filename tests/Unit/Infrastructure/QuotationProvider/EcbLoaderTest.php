@@ -22,7 +22,7 @@ final class EcbLoaderTest extends BaseLoaderTest
 
     protected function contents(): string
     {
-        return file_get_contents(__DIR__ . '/ecbResponse.xml');
+        return (string) file_get_contents(__DIR__ . '/ecbResponse.xml');
     }
 
     protected function expected(): array

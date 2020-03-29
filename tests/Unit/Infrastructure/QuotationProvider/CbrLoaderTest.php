@@ -22,7 +22,7 @@ final class CbrLoaderTest extends BaseLoaderTest
 
     protected function contents(): string
     {
-        return file_get_contents(__DIR__ . '/cbrResponse.xml');
+        return (string) file_get_contents(__DIR__ . '/cbrResponse.xml');
     }
 
     protected function expected(): array

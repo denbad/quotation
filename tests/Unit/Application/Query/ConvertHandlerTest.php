@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validation;
 
 final class ConvertHandlerTest extends TestCase
 {
-    private QuotationRepository $quotations;
+    private $quotations;
     private ConvertHandler $handler;
 
     public function testInvokeNotValid(): void
@@ -57,6 +57,10 @@ final class ConvertHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->quotations = $this->getMockBuilder(QuotationRepository::class)->getMock();
-        $this->handler = new ConvertHandler($this->quotations, Validation::createValidator(), new PropertyAccessor());
+
+        /** @var QuotationRepository $quotations */
+        $quotations = $this->quotations;
+
+        $this->handler = new ConvertHandler($quotations, Validation::createValidator(), new PropertyAccessor());
     }
 }

@@ -10,7 +10,7 @@ interface QuotationProvider
     public const LOADER_ECB = 'ecb';
     public const LOADER_CBR = 'cbr';
 
-    public function name(): string;
+    public function name(string $loader = self::LOADER_DEFAULT): string;
 
     public function quotations(string $loader = self::LOADER_DEFAULT): array;
 }

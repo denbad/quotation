@@ -12,7 +12,7 @@ final class ConversionControllerTest extends WebTestCase
     public function testWithMissingNominal(): void
     {
         $response = static::getResponse('/convert/eurusd/');
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals($content, ['400' => ['nominal' => 'This value should not be blank']]);
@@ -21,7 +21,7 @@ final class ConversionControllerTest extends WebTestCase
     public function testWithMalformedNominal(): void
     {
         $response = static::getResponse('/convert/eurusd/?nominal=aaa');
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals($content, ['400' => ['nominal' => 'Float value expected']]);
@@ -30,7 +30,7 @@ final class ConversionControllerTest extends WebTestCase
     public function testWhenNotSupported(): void
     {
         $response = static::getResponse('/convert/xxxzzz/?nominal=10');
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertEquals($content, ['404' => 'Currency code not supported']);
@@ -39,7 +39,7 @@ final class ConversionControllerTest extends WebTestCase
     public function test10EurToRub(): void
     {
         $response = static::getResponse('/convert/eurrub/?nominal=10');
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals(200, $response->getStatusCode());
 
@@ -53,7 +53,7 @@ final class ConversionControllerTest extends WebTestCase
     public function test100RubToEur(): void
     {
         $response = static::getResponse('/convert/rubeur/?nominal=100');
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals(200, $response->getStatusCode());
 
@@ -67,7 +67,7 @@ final class ConversionControllerTest extends WebTestCase
     public function testRubToGbp(): void
     {
         $response = static::getResponse('/convert/rubgbp/?nominal=200');
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals(200, $response->getStatusCode());
 
