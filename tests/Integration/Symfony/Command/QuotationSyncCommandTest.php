@@ -26,8 +26,8 @@ final class QuotationSyncCommandTest extends KernelTestCase
         ]);
         $output = $commandTester->getDisplay();
 
-        $this->assertContains('EURRON', $output);
-        $this->assertContains('ZARTHB', $output);
+        $this->assertStringContainsString('EURSEK', $output);
+        $this->assertStringContainsString('ZARTHB', $output);
     }
 
     public function testExecuteCbr(): void
@@ -45,7 +45,7 @@ final class QuotationSyncCommandTest extends KernelTestCase
         ]);
         $output = $commandTester->getDisplay();
 
-        $this->assertContains('GBPUSD', $output);
-        $this->assertContains('JPYKRW', $output);
+        $this->assertStringContainsString('GBPUSD', $output);
+        $this->assertStringContainsString('JPYKRW', $output);
     }
 }

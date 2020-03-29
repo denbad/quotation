@@ -6,4 +6,4 @@ parameters:
     excludes_analyse:
         - 'tests/bootstrap.php'
     autoload_files:
-        - bin/.phpunit/phpunit-7.5-0/vendor/autoload.php
+        - bin/.phpunit/phpunit-9.0.1-0/vendor/autoload.php
