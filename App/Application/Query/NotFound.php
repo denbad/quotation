@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Application\Query;
 
 use RuntimeException;
-use Throwable;
 
 final class NotFound extends RuntimeException
 {
-    public function __construct($code = 0, Throwable $previous = null)
+    public function __construct()
     {
-        parent::__construct('Currency code not supported', $code, $previous);
+        parent::__construct('Currency code not supported');
     }
 }
