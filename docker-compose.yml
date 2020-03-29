@@ -18,7 +18,6 @@ services:
     db:
         container_name: quotation-db
         image: percona:5.7
-        # image: percona:8.0.19-10
         ports:
             - 13306:3306
         env_file:
@@ -29,7 +28,6 @@ services:
     db-test:
         container_name: quotation-db-test
         image: percona:5.7
-        # image: percona:8.0.19-10
         ports:
             - 13307:3306
         env_file:
